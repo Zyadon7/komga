@@ -1,1 +1,20 @@
-asdf
+---
+version: '3.3'
+services:
+  komga:
+    image: gotson/komga
+    container_name: komga
+    volumes:
+      - "${DATA}:/data"
+      - "${CONFIG}:/config"
+    ports:
+      - ${PORT}:8080
+    #user: "1000:1000"
+    environment:
+      - TZ=${TZ}
+      - JAVA_TOOL_OPTIONS=-Xmx4g
+      - KOMGA_ROOT_FOLDER_SCAN_CRON=0 4 * * 0 # At 04:00 on Sunday
+    # remove the whole environment section if you don't need it
+    #environment:
+    #  - <ENV_VAR>=<extra configuration>
+    restart: unless-stopped
